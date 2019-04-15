@@ -20,13 +20,13 @@
           <el-row>
             <el-col>
               <el-menu
-                default-active="2"
+                default-active="1-1"
                 class="el-menu-vertical-demo"
                 @open="handleOpen"
                 @close="handleClose"
                 background-color="#C0C0C0"
                 text-color="#000000"
-                active-text-color="#DCDCDC">
+                active-text-color="#C71585">
 
                 <el-submenu index="1">
                   <template slot="title">
@@ -34,66 +34,51 @@
                     <span>课程信息管理</span>
                   </template>
                   <el-menu-item-group>
-                    <el-menu-item index="1-1">选项1</el-menu-item>
-                    <el-menu-item index="1-2">选项2</el-menu-item>
-                    <el-menu-item index="1-3">选项3</el-menu-item>
+                    <router-link to="/adminHome/CourseInfo">
+                    <el-menu-item index="1-1">课程信息</el-menu-item>
+                    </router-link>
+                    <router-link to="/adminHome/CourseAdd">
+                    <el-menu-item index="1-2">添加课程</el-menu-item>
+                    </router-link>
                   </el-menu-item-group>
                 </el-submenu>
 
-                <el-submenu index="2">
+                <router-link to="/adminHome/StudentInfoManage">
+                <el-menu-item index="2">
                   <template slot="title">
                     <i class="el-icon-menu"></i>
                     <span>学生信息管理</span>
                   </template>
-                  <el-menu-item-group>
-                    <el-menu-item index="2-1">选项1</el-menu-item>
-                    <el-menu-item index="2-2">选项2</el-menu-item>
-                    <el-menu-item index="2-3">选项3</el-menu-item>
-                  </el-menu-item-group>
-                </el-submenu>
+                </el-menu-item>
+                </router-link>
 
-                <el-submenu index="3">
+                <router-link to="/adminHome/TeacherInfoManage">
+                <el-menu-item index="3">
                   <template slot="title">
                     <i class="el-icon-service"></i>
                     <span>教师信息管理</span>
                   </template>
-                  <el-menu-item-group>
-                    <el-menu-item index="3-1">选项1</el-menu-item>
-                    <el-menu-item index="3-2">选项2</el-menu-item>
-                    <el-menu-item index="3-3">选项3</el-menu-item>
-                  </el-menu-item-group>
-                </el-submenu>
+                </el-menu-item>
+                </router-link>
 
-                <el-submenu index="4">
+                <router-link to="/adminHome/RoomInfoInquire">
+                <el-menu-item index="4">
                   <template slot="title">
                     <i class="el-icon-location"></i>
-                    <span>教室信息管理</span>
+                    <span>教室信息查看</span>
                   </template>
-                  <el-menu-item-group>
-                    <el-menu-item index="4-1">选项1</el-menu-item>
-                    <el-menu-item index="4-2">选项2</el-menu-item>
-                    <el-menu-item index="4-3">选项3</el-menu-item>
-                  </el-menu-item-group>
-                </el-submenu>
-
-                <el-submenu index="5">
-                  <template slot="title">
-                    <i class="el-icon-edit-outline"></i>
-                    <span>数据信息管理</span>
-                  </template>
-                  <el-menu-item-group>
-                    <el-menu-item index="5-1">选项1</el-menu-item>
-                    <el-menu-item index="5-2">选项2</el-menu-item>
-                    <el-menu-item index="5-3">选项3</el-menu-item>
-                  </el-menu-item-group>
-                </el-submenu>
+                </el-menu-item>
+                </router-link>
 
               </el-menu>
             </el-col>
           </el-row>
         </div>
-        <div class="bottom-right">
 
+        <div class="bottom-right">
+          <keep-alive>
+            <router-view></router-view>
+          </keep-alive>
         </div>
       </div>
     </div>
@@ -147,6 +132,14 @@
   }
   .bottom-left{
     width: 18% ;
+    float: left;
+  }
+  a {
+    text-decoration: none;
+  }
+  .bottom-right{
+    width: 82%;
+    float: left;
   }
 
 </style>

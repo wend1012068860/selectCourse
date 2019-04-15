@@ -6,39 +6,43 @@
           <h1>选&nbsp;&nbsp;课&nbsp;&nbsp;系&nbsp;&nbsp;统</h1>
         </div>
 
-        <div class="account">
-          <div class="before">
-            <h2>账号</h2>
-          </div>
+        <div class="account-height">
+          <div class="account">
+            <div class="before">
+              <h2>账号</h2>
+            </div>
 
-          <div class="after">
-            <el-input
-              placeholder="请输入账号"
-              v-model="account"
-              clearable>
-            </el-input>
+            <div class="after">
+              <el-input
+                placeholder="请输入账号"
+                v-model="account"
+                clearable>
+              </el-input>
+            </div>
           </div>
-
         </div>
 
-        <div class="password">
-          <div class="before2">
-            <h2>密码</h2>
-          </div>
 
-          <div class="after2">
-            <el-input
-              placeholder="请输入密码"
-              v-model="password"
-              show-password>
-            </el-input>
-          </div>
+        <div class="password-height">
+          <div class="password">
+            <div class="before2">
+              <h2>密码</h2>
+            </div>
 
-          <div class="loginButton">
-            <br/>
-            <el-button class="btn" type="success" round @click="onClick">登陆</el-button>
+            <div class="after2">
+              <el-input
+                placeholder="请输入密码"
+                v-model="password"
+                show-password>
+              </el-input>
+            </div>
           </div>
+        </div>
 
+
+        <div class="loginButton">
+          <br/>
+          <el-button class="btn" type="success" round @click="onClick">登陆</el-button>
         </div>
 
       </div>
@@ -90,7 +94,7 @@ export default {
 }
   .login{
     width: 30%;
-    height: 43%;
+    height: 50%;
     border: 3px solid gold;
     border-radius: 10%;
     margin: auto;
@@ -99,6 +103,7 @@ export default {
   }
   .title{
     margin-top: -15px;
+    height: 15%;
     font-size: 20px;
   }
   .account{
@@ -129,6 +134,12 @@ export default {
   .btn{
     width: 30%;
     font-size: 100%;
+  }
+  .account-height{
+    height: 30%;
+  }
+  .password-height{
+    height: 30%;
   }
 
 </style>
