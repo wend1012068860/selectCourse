@@ -2,7 +2,8 @@
     <div>
       <el-table
         :data="courses.filter(data => !search || data.courseName.toLowerCase().includes(search.toLowerCase()))"
-        style="width: 100%">
+        style="width: 100%"
+        @row-click="getRowDetails">
         <el-table-column
           label="课程名称"
           prop="courseName">
@@ -54,7 +55,7 @@
             <el-button
               size="mini"
               type="danger"
-              @click.native.prevent="deleteRow(scope.$index, courses)">删除</el-button>
+              @click.native.prevent="deleteRow(scope.$index, scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -66,30 +67,25 @@
     data() {
       return {
         courses: [],
-        search: ''
+        search: '',
       }
     },
     methods: {
+      getRowDetails(row){
+        //alert(row.courseId);
+      },
       handleEdit(index, row) {
         console.log(index, row);
       },
-      deleteRow(index, rows) {
-        this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
+      deleteRow(index,row) {
+        var params = new URLSearchParams();
+        params.append('courseId',row.courseId);
+        this.$http
+          .post('http://localhost:8080/course/deleteOne',params)
+          .then(function (response) {
+            //alert(response.data.data)
           });
-          rows.splice(index, 1);
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
-          });
-        });
+        this.courses.splice(index,1);
 
       }
     },
