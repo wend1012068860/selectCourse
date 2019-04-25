@@ -29,14 +29,6 @@
           prop="courseChooseNum">
         </el-table-column>
         <el-table-column
-          label="开始时间"
-          prop="beginTime">
-        </el-table-column>
-        <el-table-column
-          label="结束时间"
-          prop="endTime">
-        </el-table-column>
-        <el-table-column
           label="时间地点"
           prop="courseTp">
         </el-table-column>
@@ -46,7 +38,7 @@
             <el-input
               v-model="search"
               size="mini"
-              placeholder="搜索"/>
+              placeholder="搜索课程"/>
           </template>
           <template slot-scope="scope">
             <el-button

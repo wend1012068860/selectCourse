@@ -8,7 +8,9 @@ import element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
 import jquery from 'jquery'
 import axios from 'axios'
+import Moment from 'moment'
 
+Vue.prototype.moment = Moment;
 Vue.prototype.$http = axios;
 Vue.use(jquery);
 Vue.use(element);
