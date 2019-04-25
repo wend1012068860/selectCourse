@@ -70,16 +70,16 @@
             <el-option label="星期日(7-8节)" value="星期一(3-4节)"></el-option>
             <el-option label="星期日(9-10节)" value="星期一(3-4节)"></el-option>
           </el-select>
-          <el-button type="info" @click="searchPlace">查询此时间空余教室</el-button>
+          <el-button type="info" @click="searchPlace">查询此时间空余教室/地点</el-button>
         </el-form-item>
 
         <el-form-item label="上课地点" prop="coursePlace">
         <el-select v-model="ruleForm.coursePlace" placeholder="请选择">
           <el-option
             v-for="item in options"
-            :key="item.coursePlace"
-            :label="item.label"
-            :value="item.coursePlace">
+            :key="item.roomId"
+            :label="item.room"
+            :value="item.room">
           </el-option>
         </el-select>
         </el-form-item>
@@ -138,15 +138,36 @@
       },
       methods: {
         searchPlace(){
-          this.options = [{
-            coursePlace: '选项1',
-            label: '黄金糕'
-          }]
+          // if(this.ruleForm.courseLimitNum === null || this.ruleForm.courseTime === null){
+          //   alert("限选人数和上课时间不能为空!")
+          // }
+          var that = this;
+          var params = new URLSearchParams();
+          params.append('time',this.ruleForm.courseTime);
+          params.append('courseLimitNum',this.ruleForm.courseLimitNum);
+          this.$http
+            .post('http://localhost:8080/room/freeRoom',params)
+            .then(function (response) {
+
+            that.options = response.data.data.data;
+              console.log(options);
+            });
+
         },
         submitForm(formName) {
           this.$refs[formName].validate((valid) => {
             if (valid) {
-              alert('submit!');
+
+              var that = this;
+              this.$http.post('http://localhost:8080/course/save',{"courseName":this.ruleForm.courseName,
+              "courseNature":this.ruleForm.courseNature, "coursePoint":parseInt(this.ruleForm.coursePoint),
+              "courseTeacher":this.ruleForm.courseTeacher, "courseLimitNum":parseInt(this.ruleForm.courseLimitNum),
+              "courseChooseNum":this.ruleForm.courseChooseNum, "courseTp": this.ruleForm.courseTime + "/"
+                  + this.ruleForm.coursePlace})
+                .then(function (response) {
+                  alert('submit!');
+                })
+
             } else {
               console.log('error submit!!');
               return false;
