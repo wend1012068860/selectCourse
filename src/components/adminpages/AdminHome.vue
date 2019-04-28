@@ -125,7 +125,6 @@
   .top-title{
     background: #A9A9A9;
     width: 100%;
-    margin-top: -1%;
   }
   .bottom-content{
     width: 100%;
