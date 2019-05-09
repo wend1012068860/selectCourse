@@ -56,14 +56,15 @@
         <div class="block" style="float: left">
           <span class="demonstration">&nbsp;&nbsp;&nbsp;&nbsp;选择选课起止时间</span>
           <el-date-picker
-            v-model="value1"
+            v-model="startAndEndTime"
+            value-format="yyyy-MM-dd HH:mm:ss"
             type="datetimerange"
             start-placeholder="开始日期"
             end-placeholder="结束日期"
             :default-time="['12:00:00']">
           </el-date-picker>
         </div>
-          <el-button type="success" style="float: right">确认发布</el-button>
+          <el-button type="success" style="float: right" @click="getSETime">确认发布</el-button>
       </div>
 
     </div>
@@ -75,10 +76,19 @@
       return {
         courses: [],
         search: '',
-        value1: '',
+        startAndEndTime: '',
       }
     },
     methods: {
+      getSETime(){
+        var params = new URLSearchParams();
+        params.append('setime',this.startAndEndTime);
+        this.$http
+          .post('http://localhost:8080/course/setime',params)
+          .then(function (response) {
+            alert(response.data.data)
+          })
+      },
       getRowDetails(row){
         //alert(row.courseId);
       },

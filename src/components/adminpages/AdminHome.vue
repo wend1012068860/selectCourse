@@ -11,6 +11,7 @@
           <el-col :span="8"><div class="grid-content bg-purple" style="float: right">
             <h4>管理员:&nbsp;{{adminAccount}}</h4>
             <p>{{nowTime}}</p>
+            <p @click="exit">退出登录</p>
           </div></el-col>
         </el-row>
       </div>
@@ -92,6 +93,10 @@
         }
       },
       methods: {
+        exit(){
+          var that = this;
+          that.$router.push("/")
+        },
         // 获取当前时间函数
         timeFormate(timeStamp) {
           let year = new Date(timeStamp).getFullYear();

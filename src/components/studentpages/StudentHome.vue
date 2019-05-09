@@ -104,7 +104,10 @@
 
       <el-dialog title="修改密码" :visible.sync="dialogFormVisible2" style="width: 50%; margin: 0 auto">
         <el-form :model="form2">
-          <el-form-item label="密码" prop="pass">
+          <el-form-item label="原密码" prop="oldPass">
+            <el-input type="password" v-model="form2.oldPass" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="新密码" prop="pass">
             <el-input type="password" v-model="form2.pass" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="确认密码" prop="checkPass">
@@ -148,36 +151,7 @@
             studentName: "测试学生",
             beginTime: "2019-04-22 12:00:00",
             endTime: "2019-4-25 12:00:00",
-            tableData: [{"courseName":"测试课程","courseNature":"公共课","coursePoint": 2,
-              "courseTeacher": "教师test","courseLimitNum":200,"courseChooseNum":98,
-            "courseTp": "星期二(1-2节)/教一楼102"},
-              {"courseName":"测试课程","courseNature":"公共课","coursePoint": 2,
-                "courseTeacher": "教师test","courseLimitNum":200,"courseChooseNum":98,
-                "courseTp": "星期二(1-2节)/教一楼102"},
-              {"courseName":"测试课程","courseNature":"公共课","coursePoint": 2,
-                "courseTeacher": "教师test","courseLimitNum":200,"courseChooseNum":98,
-                "courseTp": "星期二(1-2节)/教一楼102"},
-              {"courseName":"测试课程","courseNature":"公共课","coursePoint": 2,
-                "courseTeacher": "教师test","courseLimitNum":200,"courseChooseNum":98,
-                "courseTp": "星期二(1-2节)/教一楼102"},
-              {"courseName":"测试课程","courseNature":"公共课","coursePoint": 2,
-                "courseTeacher": "教师test","courseLimitNum":200,"courseChooseNum":98,
-                "courseTp": "星期二(1-2节)/教一楼102"},
-              {"courseName":"测试课程","courseNature":"公共课","coursePoint": 2,
-                "courseTeacher": "教师test","courseLimitNum":200,"courseChooseNum":98,
-                "courseTp": "星期二(1-2节)/教一楼102"},
-              {"courseName":"测试课程","courseNature":"公共课","coursePoint": 2,
-                "courseTeacher": "教师test","courseLimitNum":200,"courseChooseNum":98,
-                "courseTp": "星期二(1-2节)/教一楼102"},
-              {"courseName":"测试课程","courseNature":"公共课","coursePoint": 2,
-                "courseTeacher": "教师test","courseLimitNum":200,"courseChooseNum":98,
-                "courseTp": "星期二(1-2节)/教一楼102"},
-              {"courseName":"测试课程","courseNature":"公共课","coursePoint": 2,
-                "courseTeacher": "教师test","courseLimitNum":200,"courseChooseNum":98,
-                "courseTp": "星期二(1-2节)/教一楼102"},
-              {"courseName":"测试课程","courseNature":"公共课","coursePoint": 2,
-                "courseTeacher": "教师test","courseLimitNum":200,"courseChooseNum":98,
-                "courseTp": "星期二(1-2节)/教一楼102"}],
+            tableData: [],
             dialogTableVisible: false,
             dialogFormVisible1: false,
             dialogFormVisible2: false,
@@ -191,6 +165,7 @@
               studentContact: '18052073669'
             },
             form2: {
+              oldPass: '',
               pass: '',
               checkPass: ''
             },
@@ -222,6 +197,14 @@
           }
 
         }
+      },
+      created() {
+        var that = this;
+        this.$http
+          .get('http://localhost:8080/course/studentCourse')
+          .then(function (response) {
+            that.tableData = response.data.data.data;
+          })
       },
   }
 </script>

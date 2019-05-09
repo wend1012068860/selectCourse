@@ -10,7 +10,7 @@ import RoomInfoInquire from '@/components/adminpages/RoomInfoInquire'
 import StudentInfoManage from '@/components/adminpages/StudentInfoManage'
 import TeacherInfoManage from '@/components/adminpages/TeacherInfoManage'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [

@@ -51,7 +51,10 @@
         </el-table-column>
       </el-table>
       <div class="daoChu">
-        <el-button type="success" round style="float: right">导出学生信息</el-button>
+        <el-button type="success" round style="float: right" @click="daochu">导出学生信息</el-button>
+      </div>
+      <div class="daoChu">
+        <el-button type="warning" round style="float: right" @click="daoru">导入学生信息</el-button>
       </div>
     </div>
 
@@ -71,6 +74,12 @@
       },
       handleDelete(index, row) {
         console.log(index, row);
+      },
+      daoru(){
+        alert("导入成功!");
+      },
+      daochu(){
+        alert("导出成功！")
       }
     },
     created() {

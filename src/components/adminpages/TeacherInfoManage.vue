@@ -41,6 +41,9 @@
       <div class="daoChu">
         <el-button type="success" round style="float: right">导出教师信息</el-button>
       </div>
+      <div class="daoChu">
+        <el-button type="warning" round style="float: right">导入教师信息</el-button>
+      </div>
     </div>
 </template>
 
