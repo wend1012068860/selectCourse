@@ -9,7 +9,7 @@
             <h1>选&nbsp;&nbsp;课&nbsp;&nbsp;系&nbsp;&nbsp;统&nbsp;&nbsp;管&nbsp;&nbsp;理&nbsp;&nbsp;界&nbsp;&nbsp;面</h1>
           </div></el-col>
           <el-col :span="8"><div class="grid-content bg-purple" style="float: right">
-            <h4>管理员:&nbsp;{{adminAccount}}</h4>
+            <h4>管理员:&nbsp;{{admin.loginAccount}}</h4>
             <p>{{nowTime}}</p>
             <p @click="exit">退出登录</p>
           </div></el-col>
@@ -89,7 +89,7 @@
     export default {
       data(){
         return{
-          adminAccount:1111
+          admin:JSON.parse(localStorage.getItem('loginUser'))
         }
       },
       methods: {

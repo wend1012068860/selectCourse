@@ -12,7 +12,7 @@
           </div></el-col>
 
           <el-col :span="8"><div class="grid-content bg-purple" style="float: right; margin-right: 2%; margin-top: 4%">
-            <p>姓名：{{teacherName}}</p>
+            <p>教师编号：{{loginTeacher.loginAccount}}</p>
             <div>
               <el-dropdown  @command="handleCommand">
               <span class="el-dropdown-link">
@@ -24,6 +24,7 @@
                 </el-dropdown-menu>
               </el-dropdown>
             </div>
+            <p @click="exit">退出登录</p>
           </div></el-col>
         </el-row>
       </div>
@@ -87,22 +88,34 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="dialogFormVisible1 = false">确 定</el-button>
+          <el-button type="primary" @click="changePass">确 定</el-button>
         </div>
       </el-dialog>
 
       <el-dialog title="修改密码" :visible.sync="dialogFormVisible2" style="width: 50%; margin: 0 auto">
         <el-form :model="form2">
-          <el-form-item label="密码" prop="pass">
-            <el-input type="password" v-model="form2.pass" autocomplete="off"></el-input>
+          <el-form-item label="原密码" prop="oldPass">
+            <el-input type="password" v-model="form2.oldPass" autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item label="确认密码" prop="checkPass">
-            <el-input type="password" v-model="form2.checkPass" autocomplete="off"></el-input>
+          <el-form-item label="新密码" prop="pass">
+            <el-input type="password" v-model="form2.pass" autocomplete="off"></el-input>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="dialogFormVisible2 = false">确 定</el-button>
+          <el-button type="primary" @click="changePass">确 定</el-button>
         </div>
+      </el-dialog>
+
+      <el-dialog title="选此课程的学生" :visible.sync="dialogTableVisible">
+        <el-table :data="gridData">
+          <el-table-column property="studentNumber" label="学号" ></el-table-column>
+          <el-table-column property="studentName" label="姓名" ></el-table-column>
+          <el-table-column property="studentClass" label="班级"></el-table-column>
+          <el-table-column property="studentProfession" label="专业"></el-table-column>
+          <el-table-column property="studentAcademy" label="学院"></el-table-column>
+          <el-table-column property="studentInTime" label="入学时间"></el-table-column>
+          <el-table-column property="studentContact" label="联系方式"></el-table-column>
+        </el-table>
       </el-dialog>
 
     </div>
@@ -112,32 +125,53 @@
     export default {
         data(){
           return{
-            teacherName: '测试老师',
-            tableData: [{"courseName":"测试课程","courseNature":"公共课","coursePoint": 2,
-              "courseTeacher": "教师test","courseLimitNum":200,"courseChooseNum":98,
-              "courseTp": "星期二(1-2节)/教一楼102"},
-              {"courseName":"测试课程","courseNature":"公共课","coursePoint": 2,
-                "courseTeacher": "教师test","courseLimitNum":200,"courseChooseNum":98,
-                "courseTp": "星期二(1-2节)/教一楼102"},
-              ],
+            loginTeacher: JSON.parse(localStorage.getItem('loginUser')),
+            tableData: [],
             dialogFormVisible1: false,
             dialogFormVisible2: false,
+            dialogTableVisible: false,
             form: {
-              teacherNumber: '3333',
-              teacherName: '教师M',
-              teacherAcademy: '计算机与软件学院',
-              teacherContact: '18052073669'
+              teacherNumber: '',
+              teacherName: '',
+              teacherAcademy: '',
+              teacherContact: ''
             },
             form2: {
-              pass: '',
-              checkPass: ''
+              oldPass: '',
+              pass: ''
             },
+            gridData:[],
             formLabelWidth: '120px',
           }
         },
       methods: {
+
+        exit(){
+          var that = this;
+          that.$router.push("/")
+        },
+
+        changePass(){
+          var params = new URLSearchParams();
+          params.append('loginAccount',this.loginTeacher.loginAccount);
+          params.append('oldPass',this.form2.oldPass);
+          params.append('newPass',this.form2.pass);
+          this.$http
+            .post('http://localhost:8080/login/change',params)
+            .then(function (response) {
+              if (response.data.data.data === 1){
+                alert("修改成功!")
+              } else {
+                alert("原密码错误，修改失败!")
+              }
+            });
+
+          this.dialogFormVisible2 = false;
+        },
+
         handleClick(row) {
-          console.log(row);
+          console.log(row.courseId);
+          this.dialogTableVisible = true;
         },
         handleCommand(command) {
           if (command === "a") {
@@ -149,6 +183,26 @@
 
         }
       },
+      created() {
+        var that = this;
+        var params = new URLSearchParams();
+        params.append('teacherNumber',this.loginTeacher.loginAccount);
+        this.$http
+          .post('http://localhost:8080/teacher/searchOne',params)
+          .then(function (response) {
+            that.form.teacherNumber = response.data.data.data.teacherNumber;
+            that.form.teacherName = response.data.data.data.teacherName;
+            that.form.teacherAcademy = response.data.data.data.teacherAcademy;
+            that.form.teacherContact = response.data.data.data.teacherContact;
+          });
+        var params = new URLSearchParams();
+        params.append('teacherNumber',this.loginTeacher.loginAccount);
+        this.$http
+          .post('http://localhost:8080/course/teacher',params)
+          .then(function (response) {
+            that.tableData = response.data.data;
+          });
+      }
     }
 </script>
 

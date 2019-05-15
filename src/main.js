@@ -12,12 +12,15 @@ import axios from 'axios'
 import Moment from 'moment'
 import 'bootstrap/dist/js/bootstrap.min'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import iView from 'iview';
+import 'iview/dist/styles/iview.css';
 
 Vue.prototype.moment = Moment;
 Vue.prototype.$http = axios;
 Vue.use(jquery);
 Vue.use(element);
 Vue.use(bootstrap);
+Vue.use(iView);
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */

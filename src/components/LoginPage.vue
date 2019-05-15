@@ -67,10 +67,11 @@ export default {
     onClick(){
       var that = this;
       this.$http
-        .post('http://localhost:8080/login/sign_in ',{"account":this.account,"password":this.password})
+        .post('http://localhost:8080/login/sign_in',{"account":this.account,"password":this.password})
         .then(function (response) {
           //alert(JSON.stringify(response.data.data));
           alert(response.data.msg);
+          localStorage.setItem("loginUser", JSON.stringify(response.data.data));
           var identity = response.data.data.loginIdentity;
           if (identity === "admin"){
             that.$router.push("/adminHome");

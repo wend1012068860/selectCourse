@@ -36,39 +36,45 @@
           <el-select v-model="ruleForm.courseTime" placeholder="请选择上课时间">
             <el-option label="星期一(1-2节)" value="星期一(1-2节)"></el-option>
             <el-option label="星期一(3-4节)" value="星期一(3-4节)"></el-option>
-            <el-option label="星期一(5-6节)" value="星期一(3-4节)"></el-option>
-            <el-option label="星期一(7-8节)" value="星期一(3-4节)"></el-option>
-            <el-option label="星期一(9-10节)" value="星期一(3-4节)"></el-option>
-            <el-option label="星期二(1-2节)" value="星期一(1-2节)"></el-option>
-            <el-option label="星期二(3-4节)" value="星期一(3-4节)"></el-option>
-            <el-option label="星期二(5-6节)" value="星期一(3-4节)"></el-option>
-            <el-option label="星期二(7-8节)" value="星期一(3-4节)"></el-option>
-            <el-option label="星期二(9-10节)" value="星期一(3-4节)"></el-option>
-            <el-option label="星期三(1-2节)" value="星期一(1-2节)"></el-option>
-            <el-option label="星期三(3-4节)" value="星期一(3-4节)"></el-option>
-            <el-option label="星期三(5-6节)" value="星期一(3-4节)"></el-option>
-            <el-option label="星期三(7-8节)" value="星期一(3-4节)"></el-option>
-            <el-option label="星期三(9-10节)" value="星期一(3-4节)"></el-option>
-            <el-option label="星期四(1-2节)" value="星期一(1-2节)"></el-option>
-            <el-option label="星期四(3-4节)" value="星期一(3-4节)"></el-option>
-            <el-option label="星期四(5-6节)" value="星期一(3-4节)"></el-option>
-            <el-option label="星期四(7-8节)" value="星期一(3-4节)"></el-option>
-            <el-option label="星期四(9-10节)" value="星期一(3-4节)"></el-option>
-            <el-option label="星期五(1-2节)" value="星期一(1-2节)"></el-option>
-            <el-option label="星期五(3-4节)" value="星期一(3-4节)"></el-option>
-            <el-option label="星期五(5-6节)" value="星期一(3-4节)"></el-option>
-            <el-option label="星期五(7-8节)" value="星期一(3-4节)"></el-option>
-            <el-option label="星期五(9-10节)" value="星期一(3-4节)"></el-option>
-            <el-option label="星期六(1-2节)" value="星期一(1-2节)"></el-option>
-            <el-option label="星期六(3-4节)" value="星期一(3-4节)"></el-option>
-            <el-option label="星期六(5-6节)" value="星期一(3-4节)"></el-option>
-            <el-option label="星期六(7-8节)" value="星期一(3-4节]"></el-option>
-            <el-option label="星期六(9-10节)" value="星期一(3-4节)"></el-option>
-            <el-option label="星期日(1-2节)" value="星期一(1-2节)"></el-option>
-            <el-option label="星期日(3-4节)" value="星期一(3-4节)"></el-option>
-            <el-option label="星期日(5-6节)" value="星期一(3-4节)"></el-option>
-            <el-option label="星期日(7-8节)" value="星期一(3-4节)"></el-option>
-            <el-option label="星期日(9-10节)" value="星期一(3-4节)"></el-option>
+            <el-option label="星期一(5-6节)" value="星期一(5-6节)"></el-option>
+            <el-option label="星期一(7-8节)" value="星期一(7-8节)"></el-option>
+            <el-option label="星期一(9-10节)" value="星期一(9-10节)"></el-option>
+
+            <el-option label="星期二(1-2节)" value="星期二(1-2节)"></el-option>
+            <el-option label="星期二(3-4节)" value="星期二(3-4节)"></el-option>
+            <el-option label="星期二(5-6节)" value="星期二(5-6节)"></el-option>
+            <el-option label="星期二(7-8节)" value="星期二(7-8节)"></el-option>
+            <el-option label="星期二(9-10节)" value="星期二(9-10节)"></el-option>
+
+            <el-option label="星期三(1-2节)" value="星期三(1-2节)"></el-option>
+            <el-option label="星期三(3-4节)" value="星期三(3-4节)"></el-option>
+            <el-option label="星期三(5-6节)" value="星期三(5-6节)"></el-option>
+            <el-option label="星期三(7-8节)" value="星期三(7-8节)"></el-option>
+            <el-option label="星期三(9-10节)" value="星期三(9-10节)"></el-option>
+
+            <el-option label="星期四(1-2节)" value="星期四(1-2节)"></el-option>
+            <el-option label="星期四(3-4节)" value="星期四(3-4节)"></el-option>
+            <el-option label="星期四(5-6节)" value="星期四(5-6节)"></el-option>
+            <el-option label="星期四(7-8节)" value="星期四(7-8节)"></el-option>
+            <el-option label="星期四(9-10节)" value="星期四(9-10节)"></el-option>
+
+            <el-option label="星期五(1-2节)" value="星期五(1-2节)"></el-option>
+            <el-option label="星期五(3-4节)" value="星期五(3-4节)"></el-option>
+            <el-option label="星期五(5-6节)" value="星期五(5-6节)"></el-option>
+            <el-option label="星期五(7-8节)" value="星期五(7-8节)"></el-option>
+            <el-option label="星期五(9-10节)" value="星期五(9-10节)"></el-option>
+
+            <el-option label="星期六(1-2节)" value="星期六(1-2节)"></el-option>
+            <el-option label="星期六(3-4节)" value="星期六(3-4节)"></el-option>
+            <el-option label="星期六(5-6节)" value="星期六(5-6节)"></el-option>
+            <el-option label="星期六(7-8节)" value="星期六(7-8节]"></el-option>
+            <el-option label="星期六(9-10节)" value="星期六(9-10节)"></el-option>
+
+            <el-option label="星期日(1-2节)" value="星期日(1-2节)"></el-option>
+            <el-option label="星期日(3-4节)" value="星期日(3-4节)"></el-option>
+            <el-option label="星期日(5-6节)" value="星期日(5-6节)"></el-option>
+            <el-option label="星期日(7-8节)" value="星期日(7-8节)"></el-option>
+            <el-option label="星期日(9-10节)" value="星期日(9-10节)"></el-option>
           </el-select>
           <el-button type="info" @click="searchPlace">查询此时间空余教室/地点</el-button>
         </el-form-item>

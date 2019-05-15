@@ -12,8 +12,9 @@
             <p>选课起止时间:{{beginTime}}--{{endTime}}</p>
           </div></el-col>
 
-          <el-col :span="8"><div class="grid-content bg-purple" style="float: right; margin-right: 2%; margin-top: 4%">
-            <p>姓名：{{studentName}}</p>
+          <el-col :span="8">
+            <div class="grid-content bg-purple" style="float: right; margin-right: 2%; margin-top: 2%">
+            <p>学号：{{loginStudent.loginAccount}}</p>
             <div>
               <el-dropdown  @command="handleCommand">
               <span class="el-dropdown-link">
@@ -26,7 +27,9 @@
                 </el-dropdown-menu>
               </el-dropdown>
             </div>
-          </div></el-col>
+            <p @click="exit">退出登录</p>
+            </div>
+          </el-col>
         </el-row>
       </div>
 
@@ -110,12 +113,9 @@
           <el-form-item label="新密码" prop="pass">
             <el-input type="password" v-model="form2.pass" autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item label="确认密码" prop="checkPass">
-            <el-input type="password" v-model="form2.checkPass" autocomplete="off"></el-input>
-          </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="dialogFormVisible2 = false">确 定</el-button>
+          <el-button type="primary" @click="changePass">确 定</el-button>
         </div>
       </el-dialog>
 
@@ -132,7 +132,7 @@
             label="操作"
             width="50px">
             <template slot-scope="scope">
-              <el-button @click="handleClick(scope.row)" type="text" size="small">退选</el-button>
+              <el-button @click="handleDelete(scope.$index, scope.row)" type="text" size="small">退选</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -148,42 +148,84 @@
     export default {
         data(){
           return{
-            studentName: "测试学生",
-            beginTime: "2019-04-22 12:00:00",
-            endTime: "2019-4-25 12:00:00",
+            loginStudent: JSON.parse(localStorage.getItem('loginUser')),
+            beginTime: "",
+            endTime: "",
             tableData: [],
+            searchStudent:[],
             dialogTableVisible: false,
             dialogFormVisible1: false,
             dialogFormVisible2: false,
             form: {
-              studentNumber: '3333',
-              studentName: '测试学生',
-              studentClass: '软件1611',
-              studentProfession: '软件技术',
-              studentAcademy: '计算机与软件学院',
-              studentInTime: '2016年9月',
-              studentContact: '18052073669'
+              studentNumber: '',
+              studentName: '',
+              studentClass: '',
+              studentProfession: '',
+              studentAcademy: '',
+              studentInTime: '',
+              studentContact: ''
             },
             form2: {
               oldPass: '',
               pass: '',
-              checkPass: ''
             },
             formLabelWidth: '120px',
-            gridData: [{
-              courseName: '测试课程',
-              courseNature: '公共课',
-              coursePoint: 2,
-              courseTeacher: '教师M',
-              courseLimitNum: 200,
-              courseChooseNum: 165,
-              courseTp: "星期一(1-2节)/教一楼103"
-            }],
+            gridData: [],
           };
         },
       methods: {
+
+        changePass(){
+          var params = new URLSearchParams();
+          params.append('loginAccount',this.loginStudent.loginAccount);
+          params.append('oldPass',this.form2.oldPass);
+          params.append('newPass',this.form2.pass);
+          this.$http
+            .post('http://localhost:8080/login/change',params)
+            .then(function (response) {
+              if (response.data.data.data === 1){
+                alert("修改成功!")
+              } else {
+                alert("原密码错误，修改失败!")
+              }
+            });
+
+          this.dialogFormVisible2 = false;
+        },
+
+        exit(){
+          var that = this;
+          that.$router.push("/")
+        },
+
+        handleDelete(index, row){
+          console.log(row.courseId);
+          var params = new URLSearchParams();
+          params.append('courseId',row.courseId);
+          params.append('studentNumber',this.loginStudent.loginAccount);
+          this.$http
+            .post('http://localhost:8080/course/exitRace',params)
+            .then(function (response) {
+              if (response.data.data === 1){
+                alert("退选成功！")
+              } else {
+                alert("退选失败！")
+              }
+            });
+          this.gridData.splice(index,1);
+        },
+
         handleClick(row) {
           console.log(row);
+          var params = new URLSearchParams();
+          params.append('courseId',row.courseId);
+          params.append('teacherName',row.courseTeacher);
+          params.append('studentNumber',this.loginStudent.loginAccount);
+          this.$http
+            .post('http://localhost:8080/course/choose',params)
+            .then(function (response) {
+              alert(response.data.data)
+            });
         },
         handleCommand(command) {
           if (command === "a") {
@@ -204,6 +246,34 @@
           .get('http://localhost:8080/course/studentCourse')
           .then(function (response) {
             that.tableData = response.data.data.data;
+          });
+        var params = new URLSearchParams();
+        params.append('studentNumber',this.loginStudent.loginAccount);
+        this.$http
+          .post('http://localhost:8080/student/searchOne',params)
+          .then(function (response) {
+            that.searchStudent = response.data.data.data;
+            console.log(that.searchStudent);
+            that.form.studentNumber = that.searchStudent.studentNumber;
+            that.form.studentName = that.searchStudent.studentName;
+            that.form.studentClass = that.searchStudent.studentClass;
+            that.form.studentProfession = that.searchStudent.studentProfession;
+            that.form.studentAcademy = that.searchStudent.studentAcademy;
+            that.form.studentInTime = that.searchStudent.studentInTime;
+            that.form.studentContact = that.searchStudent.studentContact;
+          });
+        var params = new URLSearchParams();
+        params.append('studentNumber',this.loginStudent.loginAccount);
+        this.$http
+          .post('http://localhost:8080/course/chooseCourse',params)
+          .then(function (response) {
+            that.gridData = response.data.data.data;
+          });
+        this.$http
+          .get('http://localhost:8080/course/time')
+          .then(function (response) {
+            that.beginTime = response.data.data[0];
+            that.endTime = response.data.data[1];
           })
       },
   }
