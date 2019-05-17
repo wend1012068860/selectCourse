@@ -171,7 +171,7 @@
               "courseChooseNum":this.ruleForm.courseChooseNum, "courseTp": this.ruleForm.courseTime + "/"
                   + this.ruleForm.coursePlace})
                 .then(function (response) {
-                  alert('submit!');
+                  alert('课程添加成功！');
                 })
 
             } else {

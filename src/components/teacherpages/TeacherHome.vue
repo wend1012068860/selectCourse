@@ -171,6 +171,14 @@
 
         handleClick(row) {
           console.log(row.courseId);
+          var that = this;
+          var params = new URLSearchParams();
+          params.append('courseId',row.courseId);
+          this.$http
+            .post('http://localhost:8080/course/selectStudent',params)
+            .then(function (response) {
+              that.gridData = response.data.data;
+            });
           this.dialogTableVisible = true;
         },
         handleCommand(command) {

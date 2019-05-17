@@ -1,7 +1,10 @@
 <template>
     <div>
       <el-table
-        :data="tableData.filter(data => !search || data.studentNumber.toLowerCase().includes(search.toLowerCase()))"
+        :data="tableData.filter(data => !search ||
+        data.studentNumber.toLowerCase().includes(search.toLowerCase()) ||
+        data.studentName.toLowerCase().includes(search.toLowerCase()) ||
+        data.studentClass.toLowerCase().includes(search.toLowerCase()))"
         style="width: 100%"
         id="out-table">
         <el-table-column

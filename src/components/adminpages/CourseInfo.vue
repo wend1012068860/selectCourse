@@ -1,56 +1,61 @@
 <template>
     <div>
-      <el-table
-        :data="courses.filter(data => !search || data.courseName.toLowerCase().includes(search.toLowerCase()))"
-        style="width: 100%"
-        @row-click="getRowDetails">
-        <el-table-column
-          label="课程名称"
-          prop="courseName">
-        </el-table-column>
-        <el-table-column
-          label="课程性质"
-          prop="courseNature">
-        </el-table-column>
-        <el-table-column
-          label="学分"
-          prop="coursePoint">
-        </el-table-column>
-        <el-table-column
-          label="教师"
-          prop="courseTeacher">
-        </el-table-column>
-        <el-table-column
-          label="限选人数"
-          prop="courseLimitNum">
-        </el-table-column>
-        <el-table-column
-          label="已选人数"
-          prop="courseChooseNum">
-        </el-table-column>
-        <el-table-column
-          label="时间地点"
-          prop="courseTp">
-        </el-table-column>
-        <el-table-column
-          align="right">
-          <template slot="header" slot-scope="scope">
-            <el-input
-              v-model="search"
-              size="mini"
-              placeholder="搜索课程"/>
-          </template>
-          <template slot-scope="scope">
-            <!--<el-button-->
+      <div>
+        <el-table
+          :data="courses.filter(data => !search ||
+          data.courseName.toLowerCase().includes(search.toLowerCase()) ||
+          data.courseTeacher.toLowerCase().includes(search.toLowerCase()))"
+          style="width: 100%;"
+          @row-click="getRowDetails">
+          <el-table-column
+            label="课程名称"
+            prop="courseName">
+          </el-table-column>
+          <el-table-column
+            label="课程性质"
+            prop="courseNature">
+          </el-table-column>
+          <el-table-column
+            label="学分"
+            prop="coursePoint">
+          </el-table-column>
+          <el-table-column
+            label="教师"
+            prop="courseTeacher">
+          </el-table-column>
+          <el-table-column
+            label="限选人数"
+            prop="courseLimitNum">
+          </el-table-column>
+          <el-table-column
+            label="已选人数"
+            prop="courseChooseNum">
+          </el-table-column>
+          <el-table-column
+            label="时间地点"
+            prop="courseTp">
+          </el-table-column>
+          <el-table-column
+            align="right">
+            <template slot="header" slot-scope="scope">
+              <el-input
+                v-model="search"
+                size="mini"
+                placeholder="搜索课程"/>
+            </template>
+            <template slot-scope="scope">
+              <!--<el-button-->
               <!--size="mini"-->
               <!--@click="handleEdit(scope.$index, scope.row)">编辑</el-button>-->
-            <el-button
-              size="mini"
-              type="danger"
-              @click.native.prevent="deleteRow(scope.$index, scope.row)">删除</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
+              <el-button
+                size="mini"
+                type="danger"
+                @click.native.prevent="deleteRow(scope.$index, scope.row)">删除</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
+
 
       <div class="two-time">
         <div class="block" style="float: left">
@@ -65,6 +70,9 @@
           </el-date-picker>
         </div>
           <el-button type="success" style="float: right" @click="getSETime">确认发布</el-button>
+      </div>
+      <div>
+        <p>&nbsp;</p>
       </div>
 
     </div>
@@ -86,7 +94,7 @@
         this.$http
           .post('http://localhost:8080/course/setime',params)
           .then(function (response) {
-            alert(response.data.data)
+            alert("发布成功！")
           })
       },
       getRowDetails(row){

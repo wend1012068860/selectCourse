@@ -9,7 +9,7 @@
         <div class="account-height">
           <div class="account">
             <div class="before">
-              <h2>账号</h2>
+              <h3>账号</h3>
             </div>
 
             <div class="after">
@@ -26,7 +26,7 @@
         <div class="password-height">
           <div class="password">
             <div class="before2">
-              <h2>密码</h2>
+              <h3>密码</h3>
             </div>
 
             <div class="after2">
@@ -103,7 +103,7 @@ export default {
     top: 0; left: 0; bottom: 0; right: 0;
   }
   .title{
-    margin-top: -15px;
+    margin-top: 3%;
     height: 15%;
     font-size: 20px;
   }
@@ -130,13 +130,14 @@ export default {
     margin: 0 auto;
   }
   .loginButton{
-    margin: 0 auto;
+    margin-top: -3%;
   }
   .btn{
     width: 30%;
     font-size: 100%;
   }
   .account-height{
+    margin-top: 3%;
     height: 30%;
   }
   .password-height{
