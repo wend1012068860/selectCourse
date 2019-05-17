@@ -2,6 +2,7 @@
     <div>
       <el-table
         :data="tableData.filter(data => !search || data.room.toLowerCase().includes(search.toLowerCase()))"
+        height="600"
         style="width: 100%">
           <el-table-column
           label="教室/地点"

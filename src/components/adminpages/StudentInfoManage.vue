@@ -5,6 +5,7 @@
         data.studentNumber.toLowerCase().includes(search.toLowerCase()) ||
         data.studentName.toLowerCase().includes(search.toLowerCase()) ||
         data.studentClass.toLowerCase().includes(search.toLowerCase()))"
+        height="600"
         style="width: 100%"
         id="out-table">
         <el-table-column

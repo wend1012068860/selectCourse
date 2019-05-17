@@ -4,6 +4,7 @@
         :data="tableData.filter(data => !search ||
         data.teacherNumber.toLowerCase().includes(search.toLowerCase()) ||
         data.teacherName.toLowerCase().includes(search.toLowerCase()))"
+        height="600"
         style="width: 100%"
         id="out-teacher">
         <el-table-column
