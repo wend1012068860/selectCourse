@@ -123,9 +123,9 @@
         xhr.onreadystatechange = () => {
           if (xhr.readyState === 4) {
             if (xhr.status === 200) {
-              alert("导入失败！")
-            } else {
               alert("导入成功！")
+            } else {
+              alert("导入失败！")
             }
           }
         }
